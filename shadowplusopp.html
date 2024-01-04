@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #F5D8EE;
+    }
+
+    #text-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 500px;
+      color: #0E3DFF; /* Text color */
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 900;
+      line-height: normal;
+      letter-spacing: -46.08px;
+    }
+
+    #original-text, #shadow, #countershadow {
+      position: absolute;
+      opacity: 1;
+      pointer-events: none;
+      transition: transform 0.1s ease-out;
+    }
+
+    #original-text {
+      z-index: 3; /* Higher z-index */
+    }
+
+    #shadow, #countershadow {
+      z-index: 1; /* Lower z-index */
+    }
+
+    #shadow {
+      color: #28FF6F; /* Shadow color */
+    }
+
+    #countershadow {
+      color: #FF5728; /* Countershadow color */
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="text-wrapper">
+      <div id="shadow">2023</div>
+      <div id="countershadow">2023</div>
+      <div id="original-text">2023</div> <!-- New original text -->
+    </div>
+  </div>
+
+  <script>
+    const text = document.getElementById('original-text');
+    const shadow = document.getElementById('shadow');
+    const countershadow = document.getElementById('countershadow'); // New countershadow
+
+    document.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e;
+      const rect = text.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const distanceX = centerX - clientX;
+      const distanceY = centerY - clientY;
+
+      const xPos = (distanceX / window.innerWidth) * 50;
+      const yPos = (distanceY / window.innerHeight) * 50;
+
+      shadow.style.transform = `translate(${xPos}px, ${yPos}px)`;
+      countershadow.style.transform = `translate(${-xPos}px, ${-yPos}px)`; // Move countershadow in opposite direction
+    });
+  </script>
+</body>
+</html>

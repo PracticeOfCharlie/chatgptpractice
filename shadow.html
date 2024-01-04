@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    #text {
+      font-size: 2em;
+      position: relative;
+      color: #333; /* Text color */
+    }
+
+    #shadow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #333; /* Shadow color */
+      opacity: 0.5; /* Shadow opacity */
+      pointer-events: none; /* Allow clicking through the shadow */
+      transition: transform 0.1s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="text">
+      Your Text
+      <div id="shadow">Your Text</div>
+    </div>
+  </div>
+
+  <script>
+    const text = document.getElementById('text');
+    const shadow = document.getElementById('shadow');
+
+    document.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e;
+      const rect = text.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const distanceX = centerX - clientX;
+      const distanceY = centerY - clientY;
+
+      const xPos = (distanceX / window.innerWidth) * 100;
+      const yPos = (distanceY / window.innerHeight) * 100;
+
+      shadow.style.transform = `translate(${xPos}%, ${yPos}%)`;
+    });
+  </script>
+</body>
+</html>
